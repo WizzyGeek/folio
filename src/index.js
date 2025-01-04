@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 let gtl = gsap.timeline();
 
 gtl.set('body', {overflowY: "hidden"})
-    .fromTo('body', {height: '0vh'}, {height: '100vh', duration: 1.3, delay: 0.3, ease: "power4.inOut"},)
+    .fromTo('body', {height: '0vh'}, {height: '100vh', duration: 1.3, delay: 1, ease: "power4.inOut"},)
     .fromTo('body', {margin: "auto"}, {margin:0, width: '100vw', duration: 0.4, ease: "power2.in"})
     .fromTo('.fbody', {display: "none", opacity: 0}, {display: "block", opacity: 1}, "fbodyvis")
     .from(".t1", {text: "", opacity: 0, duration: 0.25})
@@ -60,16 +60,16 @@ gtl.set('body', {overflowY: "hidden"})
 
 // gtl.repeat(-1);
 // gtl.pause(7)
-let skip = 20
+let skip = 240
 function setNoiseTexture(time, dt, tick) {
-    if (tick % skip !== 0) return;
-    if (gsap.ticker.deltaRatio(60) > 3) {
-        skip = Math.floor(skip * gsap.ticker.deltaRatio(60) / 3)
-        console.log("Skip updated", skip)
-        setTimeout(() => {
-            console.log((gsap.ticker.frame - tick))
-        }, 10000)
-    }
+    // if (tick % skip !== 0) return;
+    // if (gsap.ticker.deltaRatio(60) > 3) {
+    //     skip = Math.floor(skip * gsap.ticker.deltaRatio(60) / 3)
+    //     console.log("Skip updated", skip)
+    //     setTimeout(() => {
+    //         console.log((gsap.ticker.frame - tick))
+    //     }, 10000)
+    // }
 
     const noiseSVG = `
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
@@ -82,7 +82,7 @@ function setNoiseTexture(time, dt, tick) {
             </feSpecularLighting>
             <!-- Apply lighting effect as alpha mask to white fill -->
             <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5" />
+            <feFuncA type="linear" slope="0.4" />
             </feComponentTransfer>
         </filter>
         <rect width="100%" height="100%" filter="url(#noiseFilter)" fill="white" />
@@ -90,7 +90,7 @@ function setNoiseTexture(time, dt, tick) {
     document.getElementById('noiseUnderlay').style.background = `url('data:image/svg+xml;charset=utf-8,${encodeURIComponent(noiseSVG)}')`;
 }
 
-gsap.ticker.add(setNoiseTexture)
+setNoiseTexture()
 
 const isTouchDevice = 'ontouchstart' in window;
 const dur = 1
