@@ -119,12 +119,12 @@ const createCursorFollower = () => {
             y: y,
             duration: dur,
             ease: 'power2.out',
-            backdropFilter: isTargetLinkOrBtn ? "sepia(100%)" : "invert(100%)",
-            scale: (isDown || target?.closest('h1, p, .hero-text, .contcirc') ? 4 : isTargetLinkOrBtn ? 3 : 1),
         });
 
         gsap.to(cur, {
             backgroundColor: `rgba(${255 * (1 - scale)}, 0, ${255 * scale}, ${scale})`,
+            backdropFilter: isTargetLinkOrBtn ? "sepia(100%)" : "invert(100%)",
+            scale: (isDown || target?.closest('h1, p, .hero-text, .contcirc') ? 4 : isTargetLinkOrBtn ? 3 : 1),
             duration: 0.7
         })
     });
