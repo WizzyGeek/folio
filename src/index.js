@@ -25,7 +25,7 @@ gtl.set('body', {overflowY: "hidden"})
                     pin: div,
                     // markers:true,
                     pinSpacing: false,
-                    preventOverlaps: true,
+                    // preventOverlaps: true,
                 }
             })
             tl.from(div.getElementsByTagName("h1")[0], {opacity: 0, text: ""})
