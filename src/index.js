@@ -93,7 +93,7 @@ function setNoiseTexture(time, dt, tick) {
 setNoiseTexture()
 
 const isTouchDevice = 'ontouchstart' in window;
-const dur = 1
+const dur = 0.2
 const createCursorFollower = () => {
     const cur = document.querySelector('#cursor');
     let isDown = false;
