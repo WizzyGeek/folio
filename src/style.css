@@ -1,0 +1,55 @@
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: white;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: black;
+    width: 1px;
+    margin: auto;
+    overflow-x: hidden;
+    @apply eb-garamond
+}
+
+
+.bodoni-moda {
+  font-family: "Bodoni Moda", serif;
+  font-optical-sizing: none;
+}
+
+.eb-garamond {
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+}
+
+.fbody {
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    @apply bodoni-moda font-semibold;
+}
+
+h1 {
+    @apply text-4xl !important;
+}
+
+h2 {
+    @apply text-3xl !important;
+}
+
+p {
+    @apply mt-6;
+}

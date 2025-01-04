@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WizzyGeek</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="./style.css" rel="stylesheet" />
+        <link href="./base.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="fbody fixed overflow-scroll" id="noiseOverlay">
+            <nav class="fixed top-0 left-0 w-screen py-4 flex justify-between text-base font-medium px-12 sm:px-20 md:px-32 lg:px-44 xl:px-60 backdrop-invert-[80%] backdrop-blur-[2px] text-black">
+                <a href="https://wizzygeek.me">Home</a>
+                <div class="gap-4 flex">
+                    <a href="https://github.com/WizzyGeek">Github</a>
+                    <a href="https://guthib.com">Blog</a>
+                </div>
+            </nav>
+            <section class="h-screen flex items-center bodoni-moda px-12 text-5xl sm:text-6xl xl:text-9xl sm:px-20 md:px-32 lg:px-44 xl:px-60">
+                <div class="hero flex justify-center flex-col gap-1 sm:gap-2 xl:gap-4">
+                    <div class="hero-text italic">
+                        <span class="t1">Wizzy</span><span class="t2 text-blue-300">Geek</span>
+                    </div>
+                    <!-- <hr class="hanim hero-sep w-full" /> -->
+                    <div class="hanim eb-garamond text-base sm:text-xl xl:text-4xl pl-1 sm:pl-3 xl:pl-6">I hate <span class="text-blue-300">webdev</span>, so pay me good</div>
+                </div>
+            </section>
+            <section class="min-h-screen gap-12 px-12 sm:px-20 md:px-32 lg:px-44 xl:px-60 flex flex-col justify-evenly max-w-6xl mx-auto">
+                <div>
+                    <h1>Who am I?</h1>
+                    <p>
+                        I am an university student pursuing computer science, I have widespread interests and skills ranging from Abstract Algebra to the Cloud.
+                    </p>
+                </div>
+                <div>
+                    <h1>What do I do?</h1>
+                    <p>
+                        I do stuff that interests me, I believe it is better to be very skilled at a lot of things compared to only being skilled at one thing.
+                        I like programming and frequently code in <code>python, C/C++, Haskell, JS</code>
+                        (Yes <abbr title="Object Oriented Programming">OOP</abbr> is my least favourite paradigm, mainly due to <abbr title="Liskov Substitution Principle">LSP</abbr> not being satisfied/satisfiable practically)
+                        I also study many subjects in maths
+                    </p>
+                </div>
+                <div>
+                    <h1>My recommendation</h1>
+                    <p>
+                        Learn functional programming in a language out of your comfort zone it will change the way you think about code.
+                        (<i>psst psst Lambda Calculus!</i>)
+                    </p>
+                </div>
+                <div>
+                    <h1>How to reach me?</h1>
+                    <p>
+                        You can always email me at my active public email <a class=" underline" href="mailto:ojasscoding@gmail.com">here</a>.
+                    </p>
+                </div>
+            </section>
+            <footer class="text-black backdrop-invert-[75%] h-[30vh]">
+                <div class="max-w-6xl mx-auto h-full px-12 sm:px-20 md:px-32 lg:px-44 xl:px-60 flex font-semibold">
+                    <div class="my-auto w-full flex justify-between">
+                        <div>Copyright 2025 WizzyGeek</div>
+                        <div>
+                            <a href="https://github.com/WizzyGeek"><img class="h-8 w-8" src="/github.svg" alt="Github" /></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script src="./index.js" type="module"></script>
+    </body>
+</html>
