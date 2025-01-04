@@ -92,24 +92,41 @@ function setNoiseTexture(time, dt, tick) {
 
 setNoiseTexture()
 
+const fsig = (x) => x / (1 + x)
+
 const isTouchDevice = 'ontouchstart' in window;
 const dur = 0.2
 const createCursorFollower = () => {
     const cur = document.querySelector('#cursor');
     let isDown = false;
+    let lastX = 0
+    let lastY = 0
+    let last = performance.now()
     window.addEventListener('mousemove', (e) => {
+        const now = performance.now()
         const { target, x, y } = e;
-
         const isTargetLinkOrBtn = target?.closest('a') || target?.closest('button');
+        const dt = now - last;
+        const vel = Math.sqrt(Math.pow((x - lastX) / dt, 2) + Math.pow((y - lastY) / dt, 2))
+        const scale = fsig(vel);
+
+        last = now
+        lastX = x;
+        lastY = y;
 
         gsap.to(cur, {
             x: x + 3,
             y: y + 3,
             duration: dur,
-            ease: 'expo.out',
+            ease: 'power2.out',
             backdropFilter: isTargetLinkOrBtn ? "sepia(100%)" : "invert(100%)",
-            scale: isDown ? 4 : isTargetLinkOrBtn ? 3 : 1,
+            scale: (isDown ? 4 : isTargetLinkOrBtn ? 3 : 1),
         });
+
+        gsap.to(cur, {
+            backgroundColor: `rgba(${255 * (1 - scale)}, 0, ${255 * scale}, ${scale})`,
+            duration: 0.7
+        })
     });
 
     document.addEventListener('mouseleave', (e) => {
