@@ -105,7 +105,7 @@ const createCursorFollower = () => {
     window.addEventListener('mousemove', (e) => {
         const now = performance.now()
         const { target, x, y } = e;
-        const isTargetLinkOrBtn = target?.closest('a') || target?.closest('button');
+        const isTargetLinkOrBtn = target?.closest('a');
         const dt = now - last;
         const vel = Math.sqrt(Math.pow((x - lastX) / dt, 2) + Math.pow((y - lastY) / dt, 2))
         const scale = fsig(vel);
@@ -120,7 +120,7 @@ const createCursorFollower = () => {
             duration: dur,
             ease: 'power2.out',
             backdropFilter: isTargetLinkOrBtn ? "sepia(100%)" : "invert(100%)",
-            scale: (isDown ? 4 : isTargetLinkOrBtn ? 3 : 1),
+            scale: (isDown || target?.closest('h1, p, .hero-text') ? 4 : isTargetLinkOrBtn ? 3 : 1),
         });
 
         gsap.to(cur, {
