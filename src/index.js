@@ -7,7 +7,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 let gtl = gsap.timeline();
 
-gtl.set('body', {overflowY: "hidden"})
+gtl.set(':root', {cursor: 'none'})
+    .set('body', {overflowY: "hidden"})
     .fromTo('body', {height: '0vh'}, {height: '100vh', duration: 1.3, delay: 0.1, ease: "power4.inOut"},)
     .fromTo('body', {margin: "auto"}, {margin:0, width: '100vw', duration: 0.4, ease: "power2.in"})
     .fromTo('.fbody', {display: "none", opacity: 0}, {display: "block", opacity: 1}, "fbodyvis")
@@ -47,6 +48,7 @@ gtl.set('body', {overflowY: "hidden"})
 
         document.querySelectorAll(".circ-text").forEach(makeCircTextDecl)
     }).set('body', {height: "fit-content", overflowY: "scroll"})
+    .set(':root', {cursor: 'crosshair'})
 
 // gtl.pause(12)
 // let stl = gsap.timeline({
@@ -60,7 +62,7 @@ gtl.set('body', {overflowY: "hidden"})
 
 // gtl.repeat(-1);
 // gtl.pause(7)
-let skip = 240
+let last = performance.now() - 1001
 function setNoiseTexture(time, dt, tick) {
     // if (tick % skip !== 0) return;
     // if (gsap.ticker.deltaRatio(60) > 3) {
@@ -70,6 +72,9 @@ function setNoiseTexture(time, dt, tick) {
     //         console.log((gsap.ticker.frame - tick))
     //     }, 10000)
     // }
+    const now = performance.now()
+    if (now - last < 200) return
+    last = now
 
     const noiseSVG = `
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
@@ -95,16 +100,18 @@ setNoiseTexture()
 const fsig = (x) => x / (1 + x)
 
 const isTouchDevice = 'ontouchstart' in window;
-const dur = 0.2
+const dur = 0.3
 const createCursorFollower = () => {
     const cur = document.querySelector('#cursor');
     let isDown = false;
     let lastX = 0
     let lastY = 0
     let last = performance.now()
+
+    let lock = false
     window.addEventListener('mousemove', (e) => {
         const now = performance.now()
-        const { target, x, y } = e;
+        const { target, clientX:x, clientY:y } = e;
         const isTargetLinkOrBtn = target?.closest('a');
         const dt = now - last;
         const vel = Math.sqrt(Math.pow((x - lastX) / dt, 2) + Math.pow((y - lastY) / dt, 2))
@@ -121,11 +128,17 @@ const createCursorFollower = () => {
             ease: 'power2.out',
         });
 
+        if (lock === false && vel > 3) {
+            lock = true
+            setTimeout(() => {setNoiseTexture(); lock = false;}, 0)
+        }
+
         gsap.to(cur, {
             backgroundColor: `rgba(${255 * (1 - scale)}, 0, ${255 * scale}, ${scale})`,
             backdropFilter: isTargetLinkOrBtn ? "sepia(100%)" : "invert(100%)",
             scale: (isDown || target?.closest('h1, p, .hero-text, .contcirc') ? 4 : isTargetLinkOrBtn ? 3 : 1),
-            duration: 0.7
+            duration: 0.5,
+            ease: 'power3.out',
         })
     });
 
@@ -140,6 +153,10 @@ const createCursorFollower = () => {
     document.addEventListener('mouseenter', _ => gsap.to(cur, {duration: dur, opacity: 1}))
 
     document.addEventListener('mousedown', _ => {
+        if (lock === false) {
+            lock = true
+            setTimeout(() => {setNoiseTexture(); lock = false;}, 0)
+        }
         isDown = true;
         gsap.to(cur, {scale: 4, ease: "expo.out", duration: dur})
     })
@@ -148,7 +165,7 @@ const createCursorFollower = () => {
         isDown = false;
         const target = e.target;
         const isTargetLinkOrBtn = target?.closest('a') || target?.closest('button');
-        gsap.to(cur, {scale: isTargetLinkOrBtn ? 3 : 1, ease: "expo.out", duration: dur})
+        gsap.to(cur, {scale: isDown || target?.closest('h1, p, .hero-text, .contcirc') ? 4 : isTargetLinkOrBtn ? 3 : 1, ease: "expo.out", duration: dur})
     })
 };
 
