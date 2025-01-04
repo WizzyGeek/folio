@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 let gtl = gsap.timeline();
 
 gtl.set('body', {overflowY: "hidden"})
-    .fromTo('body', {height: '0vh'}, {height: '100vh', duration: 1.3, delay: 1, ease: "power4.inOut"},)
+    .fromTo('body', {height: '0vh'}, {height: '100vh', duration: 1.3, delay: 0.1, ease: "power4.inOut"},)
     .fromTo('body', {margin: "auto"}, {margin:0, width: '100vw', duration: 0.4, ease: "power2.in"})
     .fromTo('.fbody', {display: "none", opacity: 0}, {display: "block", opacity: 1}, "fbodyvis")
     .from(".t1", {text: "", opacity: 0, duration: 0.25})
