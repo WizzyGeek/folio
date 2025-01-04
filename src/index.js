@@ -23,7 +23,7 @@ gtl.set('body', {overflowY: "hidden"})
                     start: "top center",
                     end: "bottom center",
                     pin: div,
-                    markers:true,
+                    // markers:true,
                     pinSpacing: false,
                     preventOverlaps: true,
                 }
@@ -139,7 +139,7 @@ if (!isTouchDevice) createCursorFollower();
 
 
 function makeCircText(elem, arcRad = 1.9 * Math.PI, repeat = 1, textOrient = 1, bullet = "•") {
-    console.log(elem.dataset.text);
+    // console.log(elem.dataset.text);
     const _text = elem.dataset.text;
     let text = []
 
