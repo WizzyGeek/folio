@@ -34,10 +34,11 @@ body {
 
 .fbody {
     display: none;
+    @apply select-none;
 }
 
 #about > div {
-    @apply p-4 h-[50vh];
+    @apply h-[50vh];
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -54,4 +55,25 @@ h2 {
 
 p {
     @apply mt-6;
+}
+
+.circ-text > div {
+    position: absolute;
+}
+
+.circ-text {
+    position: relative;
+}
+
+.circ-text {
+animation: rotateText 20s linear infinite;
+}
+
+@keyframes rotateText {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

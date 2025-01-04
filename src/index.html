@@ -11,9 +11,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div id="noiseOverlay" class="fixed h-screen w-screen"></div>
+        <div id="cursor" class="fixed rounded-full w-8 h-8 z-[55] -top-5 -left-5 pointer-events-none select-none m-2"></div>
+        <div id="noiseUnderlay" class="fixed h-screen w-screen pointer-events-none select-none"></div>
         <div class="fbody" >
-            <nav class="fixed top-0 left-0 w-screen py-4 flex justify-between text-base font-medium px-12 sm:px-20 md:px-32 lg:px-44 xl:px-60 backdrop-invert-[80%] text-black z-50">
+            <nav class="fixed top-0 left-0 w-screen py-4 flex justify-between text-base font-medium px-12 sm:px-20 md:px-32 lg:px-44 xl:px-60 backdrop-invert text-black z-50">
                 <a href="https://wizzygeek.me">Home</a>
                 <div class="gap-4 flex">
                     <a href="https://github.com/WizzyGeek">Github</a>
@@ -60,10 +61,32 @@
                     </p>
                 </div>
             </section>
-            <footer class="text-black backdrop-invert-[80%] h-[40vh]">
+            <section class="pt-[50vh] pb-16 lg:pt-[20vh]">
+                <div class="flex-col flex items-start w-fit px-12 sm:px-20 md:px-32 lg:px-44 xl:px-60 gap-4 sm:gap-0">
+                    <div class="flex flex-col w-full">
+                        <div class="rounded-full backdrop-invert">
+                            <div data-text="I hate webdev, this is broken" class="circ-text h-36 w-36 text-black" data-repeat="1">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="flex sm:justify-betweeen items-start sm:items-stretch flex-col sm:flex-row gap-4 sm:gap-0">
+                        <div class="rounded-full bg-[#0fbfff59] backdrop-invert">
+                            <div data-text="open for internships" class="circ-text h-36 w-36 text-black" data-repeat="1">
+                            </div>
+                        </div>
+                        <div class="rounded-full bg-[#0fbfff00] backdrop-sepia backdrop-invert">
+                            <div data-text="vanilla cause I need pain not impostor from new frameworks" class="circ-text h-56 w-56 text-black" data-repeat="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="text-black backdrop-invert h-[40vh]">
                 <div class="max-w-6xl mx-auto h-full px-12 sm:px-20 md:px-32 lg:px-44 xl:px-60 flex font-semibold">
                     <div class="my-auto w-full flex justify-between">
-                        <div>Copyright 2025 WizzyGeek<br/> Made in 1 all-nighter</div>
+                        <div>Copyright 2025 WizzyGeek<br/>Designed in a notebook</div>
                         <div>
                             <a href="https://github.com/WizzyGeek"><img class="h-8 w-8" src="/github.svg" alt="Github" /></a>
                         </div>
