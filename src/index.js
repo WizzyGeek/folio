@@ -5,63 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(TextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
-let gtl = gsap.timeline();
-
-gtl.set(':root', {cursor: 'none'})
-    .set('body', {overflowY: "hidden"})
-    .fromTo('body', {height: '0vh'}, {height: '100vh', duration: 1.3, delay: 0.1, ease: "power4.inOut"},)
-    .fromTo('body', {margin: "auto"}, {margin:0, width: '100vw', duration: 0.4, ease: "power2.in"})
-    .fromTo('.fbody', {display: "none", opacity: 0}, {display: "block", opacity: 1}, "fbodyvis")
-    .from(".t1", {text: "", opacity: 0, duration: 0.25})
-    .from(".t2", {text: "", opacity: 0, duration: 0.25})
-    .from(".hanim", {opacity: 0, text: ""}, "fbodyvis")
-    .from("nav", {opacity: 0, duration: 1}).eventCallback("onComplete", () => {
-        document.querySelectorAll("#about > div").forEach(div => {
-            let tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: div,
-                    toggleActions: "play reverse play reverse",
-                    start: "top center",
-                    end: "bottom center",
-                    pin: div,
-                    // markers:true,
-                    pinSpacing: false,
-                    // preventOverlaps: true,
-                }
-            })
-            tl.from(div.getElementsByTagName("h1")[0], {opacity: 0, text: ""})
-            .from(div.getElementsByTagName("p")[0], {opacity: 0, text: ""})
-        })
-
-        gsap.fromTo("#godown", {opacity: 1}, {
-            scrollTrigger: {
-                trigger: ".hero",
-                start: "top top",
-                end: "bottom top",
-                // markers: true,
-                scroller: "body",
-                toggleActions: "play none none reset",
-                scrub: 1,
-            },
-            opacity: 0
-        })
-
-        document.querySelectorAll(".circ-text").forEach(makeCircTextDecl)
-    }).set('body', {height: "fit-content", overflowY: "scroll"})
-    .set(':root', {cursor: 'crosshair'})
-
-// gtl.pause(12)
-// let stl = gsap.timeline({
-//     scrollTrigger: {
-//         trigger: "h1, p"
-//     },
-// })
-
-// stl.from("h1", {text: "", opacity: 0, y: -30}).from("p", {text: "", opacity: 0, y: -10})
-
-
-// gtl.repeat(-1);
-// gtl.pause(7)
 let last = performance.now() - 1001
 function setNoiseTexture(time, dt, tick) {
     // if (tick % skip !== 0) return;
@@ -96,6 +39,67 @@ function setNoiseTexture(time, dt, tick) {
 }
 
 setNoiseTexture()
+
+let gtl = gsap.timeline();
+
+gtl.set(':root', {cursor: 'none'})
+    .set('body', {overflowY: "hidden"})
+    .set('#noiseUnderlay', {opacity: 0})
+    .fromTo('body', {height: '0vh'}, {height: '100vh', duration: 0.3, delay:0.1, ease: "none"},)
+    .fromTo('body', {margin: "auto"}, {margin:0, width: '100vw', duration: 0.3, ease: "power2.in"})
+    .fromTo('.fbody', {display: "none", opacity: 0}, {display: "block", opacity: 1})
+    .addLabel("fbodyvis")
+    .from(".t1", {text: "", opacity: 0, duration: 0.1})
+    .from(".t2", {text: "", opacity: 0, duration: 0.1})
+    .from(".hanim", {opacity: 0, text: "", duration: 0.3}, "fbodyvis")
+    .from("nav", {opacity: 0, duration: 0.3}, "fbodyvis").eventCallback("onComplete", () => {
+        document.querySelectorAll("#about > div").forEach(div => {
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: div,
+                    toggleActions: "play reverse play reverse",
+                    start: "top center",
+                    end: "bottom center",
+                    pin: div,
+                    // markers:true,
+                    pinSpacing: false,
+                    // preventOverlaps: true,
+                }
+            })
+            tl.from(div.getElementsByTagName("h1")[0], {opacity: 0, text: ""})
+            .from(div.getElementsByTagName("p")[0], {opacity: 0, text: ""})
+        })
+
+        gsap.fromTo("#godown", {opacity: 1}, {
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                // markers: true,
+                scroller: "body",
+                toggleActions: "play none none reset",
+                scrub: 1,
+            },
+            opacity: 0
+        })
+
+        document.querySelectorAll(".circ-text").forEach(makeCircTextDecl)
+    }).set('body', {height: "fit-content", overflowY: "scroll"})
+    .set(':root', {cursor: 'crosshair'})
+    .to('#noiseUnderlay', {opacity: 1, duration: 0.3}, "fbodyvis")
+
+// gtl.pause(12)
+// let stl = gsap.timeline({
+//     scrollTrigger: {
+//         trigger: "h1, p"
+//     },
+// })
+
+// stl.from("h1", {text: "", opacity: 0, y: -30}).from("p", {text: "", opacity: 0, y: -10})
+
+
+// gtl.repeat(-1);
+// gtl.pause(7)
 
 const fsig = (x) => x / (1 + x)
 
