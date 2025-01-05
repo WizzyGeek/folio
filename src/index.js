@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(TextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
+const isTouchDevice = 'ontouchstart' in window;
 let last = performance.now() - 1001
 function setNoiseTexture(time, dt, tick) {
     // if (tick % skip !== 0) return;
@@ -61,13 +62,18 @@ gtl.set(':root', {cursor: 'none'})
                     start: "top center",
                     end: "bottom center",
                     pin: div,
-                    // markers:true,
+                    snap: isTouchDevice ? {
+                        snapTo: () => 0.99,
+                        inertia: false,
+                        directional: false
+                    } : undefined,
+                    markers: true,
                     pinSpacing: false,
                     // preventOverlaps: true,
                 }
             })
             tl.from(div.getElementsByTagName("h1")[0], {opacity: 0, text: ""})
-            .from(div.getElementsByTagName("p")[0], {opacity: 0, text: ""})
+            .from(div.getElementsByTagName("p")[0], {opacity: 0, text: ""}).addLabel("visible")
         })
 
         gsap.fromTo("#godown", {opacity: 1}, {
@@ -103,7 +109,6 @@ gtl.set(':root', {cursor: 'none'})
 
 const fsig = (x) => x / (1 + x)
 
-const isTouchDevice = 'ontouchstart' in window;
 const dur = 0.3
 const createCursorFollower = () => {
     const cur = document.querySelector('#cursor');
