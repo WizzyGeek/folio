@@ -6,7 +6,6 @@ gsap.registerPlugin(TextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
 const isTouchDevice = 'ontouchstart' in window;
-let last = performance.now() - 1001
 function setNoiseTexture(time, dt, tick) {
     // if (tick % skip !== 0) return;
     // if (gsap.ticker.deltaRatio(60) > 3) {
@@ -16,26 +15,20 @@ function setNoiseTexture(time, dt, tick) {
     //         console.log((gsap.ticker.frame - tick))
     //     }, 10000)
     // }
-    const now = performance.now()
-    if (now - last < 200) return
-    last = now
 
     const noiseSVG = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-        <filter id="noiseFilter" primitiveUnits="objectBoundingBox">
-            <!-- Generate turbulence pattern -->
-            <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="${Math.floor(Math.random() * 100)}" result="turbulence" />
-            <!-- Add lighting effect for texture with specular highlights -->
-            <feSpecularLighting in="turbulence" surfaceScale="1.1" specularConstant="0.7" specularExponent="20" lighting-color="white">
-            <fePointLight x="50" y="50" z="30" />
-            </feSpecularLighting>
-            <!-- Apply lighting effect as alpha mask to white fill -->
-            <feComponentTransfer>
-            <feFuncA type="linear" slope="0.4" />
-            </feComponentTransfer>
-        </filter>
-        <rect width="100%" height="100%" filter="url(#noiseFilter)" fill="white" />
-        </svg>`;
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<filter id="noiseFilter" primitiveUnits="objectBoundingBox">
+<feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="${Math.floor(Math.random() * 100)}" result="turbulence" />
+<feSpecularLighting in="turbulence" surfaceScale="1.1" specularConstant="0.7" specularExponent="20" lighting-color="white">
+<fePointLight x="50" y="50" z="30" />
+</feSpecularLighting>
+<feComponentTransfer>
+<feFuncA type="linear" slope="0.45" />
+</feComponentTransfer>
+</filter>
+<rect width="100%" height="100%" filter="url(#noiseFilter)" fill="white" />
+</svg>`;
     document.getElementById('noiseUnderlay').style.background = `url('data:image/svg+xml;charset=utf-8,${encodeURIComponent(noiseSVG)}')`;
 }
 
@@ -62,18 +55,16 @@ gtl.set(':root', {cursor: 'none'})
                     start: "top center",
                     end: "bottom center",
                     pin: div,
-                    snap: isTouchDevice ? {
-                        snapTo: () => 0.99,
-                        inertia: false,
-                        directional: false
-                    } : undefined,
-                    markers: true,
+                    snap: {
+                        snapTo: () => 0.01,
+                    },
+                    // markers: true,
                     pinSpacing: false,
-                    // preventOverlaps: true,
+                    preventOverlaps: true,
                 }
             })
             tl.from(div.getElementsByTagName("h1")[0], {opacity: 0, text: ""})
-            .from(div.getElementsByTagName("p")[0], {opacity: 0, text: ""}).addLabel("visible")
+            .from(div.getElementsByTagName("p")[0], {opacity: 0, text: ""}, "<").addLabel("visible")
         })
 
         gsap.fromTo("#godown", {opacity: 1}, {
@@ -139,7 +130,7 @@ const createCursorFollower = () => {
 
         if (lock === false && vel > 3) {
             lock = true
-            setTimeout(() => {setNoiseTexture(); lock = false;}, 0)
+            setTimeout(() => {setNoiseTexture(); lock = false;}, 500)
         }
 
         gsap.to(cur, {
@@ -164,7 +155,7 @@ const createCursorFollower = () => {
     document.addEventListener('mousedown', _ => {
         if (lock === false) {
             lock = true
-            setTimeout(() => {setNoiseTexture(); lock = false;}, 0)
+            setTimeout(() => {setNoiseTexture(); lock = false;}, 300)
         }
         isDown = true;
         gsap.to(cur, {scale: 4, ease: "expo.out", duration: dur})
