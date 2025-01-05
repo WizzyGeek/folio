@@ -100,7 +100,7 @@ gtl.set(':root', {cursor: 'none'})
 
 const fsig = (x) => x / (1 + x)
 
-const dur = 0.3
+const dur = 1
 const createCursorFollower = () => {
     const cur = document.querySelector('#cursor');
     let isDown = false;
@@ -125,7 +125,7 @@ const createCursorFollower = () => {
             x: x,
             y: y,
             duration: dur,
-            ease: 'power2.out',
+            ease: 'expo.out',
         });
 
         gsap.to(cur, {
