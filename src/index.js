@@ -56,7 +56,7 @@ gtl.set(':root', {cursor: 'none'})
                     end: "bottom center",
                     pin: div,
                     snap: {
-                        snapTo: () => 0.01,
+                        snapTo: () => 0.5,
                     },
                     // markers: true,
                     pinSpacing: false,
