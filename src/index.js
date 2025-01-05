@@ -128,11 +128,6 @@ const createCursorFollower = () => {
             ease: 'power2.out',
         });
 
-        if (lock === false && vel > 3) {
-            lock = true
-            setTimeout(() => {setNoiseTexture(); lock = false;}, 500)
-        }
-
         gsap.to(cur, {
             backgroundColor: `rgba(${255 * (1 - scale)}, 0, ${255 * scale}, ${scale})`,
             backdropFilter: isTargetLinkOrBtn ? "sepia(100%)" : "invert(100%)",
@@ -142,7 +137,17 @@ const createCursorFollower = () => {
         })
     });
 
+    document.addEventListener('dblclick', () => {
+        if (lock === false) {
+            lock = true
+            setTimeout(() => {setNoiseTexture(); lock = false;}, 1000)
+        }
+    })
     document.addEventListener('mouseleave', (e) => {
+        if (lock === false) {
+            lock = true
+            setTimeout(() => {setNoiseTexture(); lock = false;}, 1000)
+        }
         isDown = false;
         gsap.to(cur, {
             duration: dur,
@@ -153,10 +158,6 @@ const createCursorFollower = () => {
     document.addEventListener('mouseenter', _ => gsap.to(cur, {duration: dur, opacity: 1}))
 
     document.addEventListener('mousedown', _ => {
-        if (lock === false) {
-            lock = true
-            setTimeout(() => {setNoiseTexture(); lock = false;}, 300)
-        }
         isDown = true;
         gsap.to(cur, {scale: 4, ease: "expo.out", duration: dur})
     })
